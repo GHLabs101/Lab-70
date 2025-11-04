@@ -1,0 +1,13 @@
+name: Use Metadata Demo Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/metadata-demo
+        with:
+          example-input: "HelloMeta"
+      - run: echo "Output was ${{ steps.demo.outputs.example-output }}"
