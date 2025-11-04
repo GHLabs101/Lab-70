@@ -7,7 +7,30 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/metadata-demo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show workspace and .github tree
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          pwd
+          ls -la
+          echo "---- .github ----"
+          ls -la .github || true
+          echo "---- .github/actions ----"
+          ls -la .github/actions || true
+          echo "---- .github/actions/metadata-demo ----"
+          ls -la .github/actions/metadata-demo || true
+          echo "---- file magic ----"
+          file .github/actions/metadata-demo/* || true
+          echo "---- cat action.yml ----"
+          cat .github/actions/metadata-demo/action.yml || true
+
+      - name: Run local metadata demo action
+        id: demo
+        uses: ./.github/actions/metadata-demo
         with:
           example-input: "HelloMeta"
-      - run: echo "Output was ${{ steps.demo.outputs.example-output }}"
+
+      - name: Show output
+        run: echo "Output was ${{ steps.demo.outputs.example-output }}"
