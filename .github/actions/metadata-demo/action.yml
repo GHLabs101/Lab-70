@@ -1,0 +1,17 @@
+name: "Metadata Demo Action"
+description: "A demo action to show metadata structure"
+author: "Your Name"
+inputs:
+  example-input:
+    description: "An example input value"
+    required: false
+    default: "default-value"
+outputs:
+  example-output:
+    description: "An example output value"
+runs:
+  using: "composite"
+  steps:
+    - run: echo "Input was ${{ inputs.example-input }}"
+      id: demo
+    - run: echo "example-output=OUTPUT_$((RANDOM))" >> "$GITHUB_OUTPUT"
